@@ -20,6 +20,16 @@
             android:name=".GameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_game"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".HelpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_help"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".HighScoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_high_score"
             android:theme="@style/FullscreenTheme"></activity>
     </application>
 
