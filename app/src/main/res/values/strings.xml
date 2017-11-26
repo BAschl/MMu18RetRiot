@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">UE Multimedia Template</string>
+    <string name="app_name">Retirement Riot</string>
 
     <string name="title_activity_game">GameActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_help">HelpActivity</string>
+
+    <string name="title_activity_high_score">HighScoreActivity</string>
 </resources>
