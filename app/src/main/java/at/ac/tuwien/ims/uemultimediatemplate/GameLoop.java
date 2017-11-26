@@ -9,7 +9,8 @@ import android.view.SurfaceHolder;
 import android.widget.Toast;
 
 /**
- * Created by Bernhard on 09.11.2017.
+ * The GameLoop-Thread the Game runs on.
+ * @author Bernhard Aschl
  */
 
 class GameLoop implements Runnable {
@@ -18,6 +19,11 @@ class GameLoop implements Runnable {
     private boolean running;
     private double dltRatio;
 
+    /**
+     * The constructor for this GameLoop.
+     * @param surfaceHolder
+     * @param gameSurfaceview The GameSurfaceView this Gameloop is for.
+     */
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceview gameSurfaceview) {
         this.holder=surfaceHolder;
         this.view=gameSurfaceview;
@@ -25,10 +31,18 @@ class GameLoop implements Runnable {
         Log.v("GameLoop", "gameloop created");
     }
 
+    /**
+     * Sets the running state of the thread.
+     * @param running If running is true, the thread starts running (as soon as started) If running is false it stops.
+     */
     public void setRunning(boolean running){
         this.running=running;
     }
 
+    /**
+     * Here the actual gameloop is implemented. Doesn't create a thread when run is called.
+     * Frame-independence is implemented here with DeltaRatio.
+     */
     @Override
     public void run(){
 

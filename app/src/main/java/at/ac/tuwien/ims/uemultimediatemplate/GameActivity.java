@@ -9,25 +9,19 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * The main game takes place in this activity. It contains only a {@Link GameSurfaceview}.
+ * TODO: Make it fullscreen.
+ * @author Bernhard Aschl
  */
 public class GameActivity extends AppCompatActivity {
-
+    /**
+     * Pretty much standard onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_game);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
     }
 
 }

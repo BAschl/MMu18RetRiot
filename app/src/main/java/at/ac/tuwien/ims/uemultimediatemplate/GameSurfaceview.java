@@ -12,7 +12,10 @@ import android.view.SurfaceView;
 import android.widget.Toast;
 
 /**
- * TODO: document your custom view class.
+ * Here is where the magic happens. The game logic is in this class.
+ * It utilizes a {@link GameLoop}. So far it is only capable of drawing a rectangle and a line.
+ * @author Bernhard Aschl
+ *
  */
 public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callback{
 
@@ -20,6 +23,11 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
     private GameLoop loop;
     private Thread loopThread;
 
+    /**
+     * Pretty much standard constructor of this class.
+     * Three versions of this constructor have to be implemented to avoid exceptions.
+     * @param context
+     */
     public GameSurfaceview(Context context) {
         super(context);
 
@@ -40,6 +48,11 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    /**
+     * Is called after the surface is created.
+     * The Gameloop is initialized here and started here.
+     * @param surfaceHolder the surfaceHolder the game takes place in
+     */
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         loop = new GameLoop(surfaceHolder, this);
@@ -49,13 +62,24 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
 
     }
 
-
-
+    /**
+     * Isn't used right now. Is called when something is changed on the surface.
+     * @param surfaceHolder
+     * @param i
+     * @param i1
+     * @param i2
+     */
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 
     }
 
+
+    /**
+     * Is called after the surface is destroyed (game closed, back button...)
+     * The gameloop is stopped here.
+     * @param surfaceHolder
+     */
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         loop.setRunning(false);
@@ -65,6 +89,12 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Here every gameobject will be drawn. Currently it only draws a rectangle and a line.
+     * @param c The canvas to draw on.
+     */
     @Override
     public void draw(Canvas c){
         if(c==null){
