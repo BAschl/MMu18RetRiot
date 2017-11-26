@@ -4,6 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context="at.ac.tuwien.ims.uemultimediatemplate.MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Start"
+            tools:text="Start" />
+
+        <Button
+            android:id="@+id/highscore_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/start_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Highscores"
+            tools:text="Highscores" />
+
+        <Button
+            android:id="@+id/help_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/start_button"
+            android:layout_alignStart="@+id/start_button"
+            android:layout_below="@+id/highscore_button"
+            android:layout_marginTop="30dp"
+            android:text="Help"
+            tools:text="Help" />
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
