@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 import android.widget.Toast;
 
 /**
- * Here is where the magic happens. The game logic is in this class.
+ * The game logic is in this class. Here is where the magic happens.
  * It utilizes a {@link GameLoop}. So far it is only capable of drawing a rectangle and a line.
  * @author Bernhard Aschl
  *

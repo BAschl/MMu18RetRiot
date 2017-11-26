@@ -4,8 +4,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-/**@author Hannah Clara
+/**
  * Help-Screen, where controls and rules are explained.
+ * @author Hannah Clara
  */
 public class HelpActivity extends AppCompatActivity {
     @Override
