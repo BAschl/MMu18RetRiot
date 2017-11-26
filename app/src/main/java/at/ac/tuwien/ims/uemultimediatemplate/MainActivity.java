@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**@author Hannah Clara
+ * MainActivity is the main Menu of the game, includes 3 buttons (start, highscores, help)
+ * The Start button will start the game(GameActivity). The Highscore Button opens the Highscore-screen (HighScoreActivty)
+ * and the Help-button will lead to a screen (HelpActivtiy), where controls and rules of the game are explained.
+*/
 public class MainActivity extends AppCompatActivity {
 
     @Override
