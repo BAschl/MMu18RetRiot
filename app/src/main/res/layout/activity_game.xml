@@ -15,5 +15,6 @@
     <at.ac.tuwien.ims.uemultimediatemplate.GameSurfaceview
         android:id="@+id/gameSurfaceview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"/>
 </FrameLayout>

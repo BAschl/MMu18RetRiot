@@ -1,15 +1,16 @@
 package at.ac.tuwien.ims.uemultimediatemplate;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * The game logic is in this class. Here is where the magic happens.
@@ -19,9 +20,18 @@ import android.widget.Toast;
  */
 public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callback{
 
+    public float DeltaRatio =1f;
 
     private GameLoop loop;
     private Thread loopThread;
+
+    private final ArrayList<GameObject> enemies=new ArrayList<>();
+    private final ArrayList<GameObject> oldies=new ArrayList<>();
+    public GameObject Base;
+    private Sprite enemySprite;
+
+
+    //todo: enforce panorama
 
     /**
      * Pretty much standard constructor of this class.
@@ -31,22 +41,53 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
     public GameSurfaceview(Context context) {
         super(context);
 
+        Initialize();
+
         getHolder().addCallback(this);
         setFocusable(true);
     }
+
+    //this one is used
     public GameSurfaceview(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        Initialize();
+
         getHolder().addCallback(this);
         setFocusable(true);
     }
+
     public GameSurfaceview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs,defStyle);
 
+        Initialize();
+
         getHolder().addCallback(this);
         setFocusable(true);
     }
 
+    @Override
+    protected void onSizeChanged(int newWidth, int newHeight, int oldWidth, int oldHeight){
+        if(this.Base != null) {
+            this.Base.position = new FloatPoint(newWidth / 2f, newHeight);
+        }
+    }
+
+    private void Initialize(){
+        Base=new GameObject(this,
+                new FloatPoint(this.getWidth()/2f, this.getHeight()),
+                0f,
+                new Sprite(new Paint(Color.WHITE)),
+                true);
+
+        enemySprite=new Sprite(new Paint(Color.WHITE));
+
+        Oldie ol=new Oldie();
+        ol.position.offset(100f, 100f);
+        ol.ParentView=this;
+
+        oldies.add(ol);
+    }
 
     /**
      * Is called after the surface is created.
@@ -92,24 +133,72 @@ public class GameSurfaceview extends SurfaceView implements SurfaceHolder.Callba
 
 
     /**
-     * Here every gameobject will be drawn. Currently it only draws a rectangle and a line.
+     * Here every gameobject will be drawn.
      * @param c The canvas to draw on.
      */
     @Override
     public void draw(Canvas c){
+
         if(c==null){
             Log.d("GameSurfaceview/draw", "Canvas is null");
             return;
         }
+
         super.draw(c);
 
-        Paint p= new Paint();
-        p.setColor(Color.GREEN);
-        p.setStyle(Paint.Style.FILL_AND_STROKE);
-        c.drawRect(new Rect(50, 30, 100, 70), p);
-        Paint p2=new Paint();
-        p2.setColor(Color.WHITE);
-        p2.setStyle(Paint.Style.FILL);
-        c.drawLine(0f, 0f, 100f, 100f, p2);
+        if(oldies!=null && enemies !=null) {
+
+            for (GameObject oldie : oldies) {
+                oldie.draw(c, DeltaRatio);
+            }
+
+            for(GameObject enemy : enemies){
+                enemy.draw(c, DeltaRatio);
+            }
+        }
+
+
+    }
+
+    public void update(double dltRatio) {
+        //spawn enemies randomly
+        SpawnEnemies(dltRatio);
+
+        if(oldies!=null && enemies != null){
+            for (GameObject oldie : oldies){
+                oldie.update(dltRatio);
+            }
+            for (GameObject enemy : enemies){
+                enemy.update(dltRatio);
+            }
+        }
+
+        this.invalidate();
+    }
+
+    private double elapsedTimeSinceLastSpawn=0;
+    private void SpawnEnemies(double dltRatio) {
+
+        elapsedTimeSinceLastSpawn+=dltRatio;
+
+        while(elapsedTimeSinceLastSpawn>60){
+            elapsedTimeSinceLastSpawn-=60;
+
+
+            FloatPoint startPostion =
+                    new FloatPoint((float) Math.random()*this.getWidth(), -10f);
+
+            Enemy spawn = new Enemy(
+                    this,
+                    startPostion,
+                    2,
+                    enemySprite,
+                    true,
+                    100
+            );
+            enemies.add(spawn);
+
+        }
+
     }
 }

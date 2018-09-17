@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RetRiot.iml" filepath="$PROJECT_DIR$/RetRiot.iml" />
-      <module fileurl="file://C:\Users\Bernhard\Documents\UNI\17W\MultiUE\RetRiot\UEMultimediaTemplate.iml" filepath="C:\Users\Bernhard\Documents\UNI\17W\MultiUE\RetRiot\UEMultimediaTemplate.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

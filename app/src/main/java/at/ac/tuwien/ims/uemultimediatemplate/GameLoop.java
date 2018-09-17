@@ -1,12 +1,8 @@
 package at.ac.tuwien.ims.uemultimediatemplate;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import android.widget.Toast;
 
 /**
  * The GameLoop-Thread the Game runs on.
@@ -14,10 +10,12 @@ import android.widget.Toast;
  */
 
 class GameLoop implements Runnable {
+
+    private boolean running;
+    private float dltRatio;
+
     private SurfaceHolder holder;
     private GameSurfaceview view;
-    private boolean running;
-    private double dltRatio;
 
     /**
      * The constructor for this GameLoop.
@@ -25,9 +23,9 @@ class GameLoop implements Runnable {
      * @param gameSurfaceview The GameSurfaceView this Gameloop is for.
      */
     public GameLoop(SurfaceHolder surfaceHolder, GameSurfaceview gameSurfaceview) {
-        this.holder=surfaceHolder;
-        this.view=gameSurfaceview;
-        this.dltRatio =1;
+        holder=surfaceHolder;
+        view=gameSurfaceview;
+        dltRatio =1;
         Log.v("GameLoop", "gameloop created");
     }
 
@@ -47,32 +45,45 @@ class GameLoop implements Runnable {
     public void run(){
 
         Log.d("GameLoop/run", "gameloop has started, running is "+running);
-        //standard would be 60fps
+
         long lastFrameTime= System.currentTimeMillis();
+
+
         while (running){
-            int deltaTime=(int)(lastFrameTime- System.currentTimeMillis());
+
+            int deltaTime=(int)(System.currentTimeMillis()-lastFrameTime);
             lastFrameTime= System.currentTimeMillis();
-            dltRatio=deltaTime/(1f/60f);
-            //frameunabhänigkeit wird nicht mit framedropping und delaying, sondern deltaRatio implementiert.
+            dltRatio=(deltaTime/(1f/60f))/1000;
+
+            //frameunabhänigkeit wird nicht mit framedropping und delaying, sondern DeltaRatio implementiert.
             //dabei wird errechnet, wie viel Zeit in Relation zu 1/60tel einer Sekunde vergangen ist
             //und alle Movements usw. werden mit dem Wert (dltRatio) multipliziert.
 
             //update
 
+            view.update(dltRatio);
+
             Canvas c;
             c=holder.lockCanvas();
 
             try {
+
                 synchronized (holder) {
-                    if(view!=null)
+                    if(view!=null) {
+
+                        view.DeltaRatio =dltRatio;
                         view.draw(c);
+
+                    }
                 }
+
             }finally{
                 if(c!=null){
                     holder.unlockCanvasAndPost(c);
                 }
             }
         }
+
     }
 
 
